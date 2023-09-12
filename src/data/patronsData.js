@@ -19,3 +19,11 @@ export const updatePatron = (patron) => {
 
     return fetch(`${_apiUrl}/${patron.id}`, options)
 }
+
+export const deactivatePatron = (id) => {
+    const options = {
+        method: "POST",
+    }
+
+    return fetch(`${_apiUrl}/${id}/deactivate`, options);
+}

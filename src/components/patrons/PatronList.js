@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Modal, ModalBody, Table } from "reactstrap";
-import { getPatrons } from "../../data/patronsData";
+import { deactivatePatron, getPatrons } from "../../data/patronsData";
 import { Link } from "react-router-dom";
 import UpdatePatron from './UpdatePatron';
 
@@ -12,6 +12,12 @@ export default function PatronList() {
     useEffect(() => {
         getPatrons().then(setPatrons);
     }, []);
+
+    const handleDeactivate = (patron) => {
+        deactivatePatron(patron.id).then(() => {
+            getPatrons().then(setPatrons);
+        })
+    }
 
     return (
         <div className="container">
@@ -27,6 +33,8 @@ export default function PatronList() {
                         <th>Address</th>
                         <th>Email</th>
                         <th>Active</th>
+                        <th></th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -45,6 +53,9 @@ export default function PatronList() {
                                 setIsModalOpen(true);
                                 setSelectedPatron(p);
                             }}>Edit</Button></td>
+                            <td>{p.isActive ? <Button onClick={() => {
+                                handleDeactivate(p);
+                            }}>Deactivate</Button> : ""}</td>
                         </tr>
                     ))}
                 </tbody>
