@@ -16,3 +16,11 @@ export const createMaterial = (material) => {
     body: JSON.stringify(material),
   }).then((res) => res.json());
 };
+
+export const removeMaterial = (materialId) => {
+  const options = {
+    method: "POST"
+  }
+
+  return fetch(`${_apiUrl}/${materialId}/retire`, options)
+}

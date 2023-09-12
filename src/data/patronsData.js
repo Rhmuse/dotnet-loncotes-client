@@ -20,10 +20,10 @@ export const updatePatron = (patron) => {
     return fetch(`${_apiUrl}/${patron.id}`, options)
 }
 
-export const deactivatePatron = (id) => {
+export const deactivatePatron = (patronId) => {
     const options = {
         method: "POST",
     }
 
-    return fetch(`${_apiUrl}/${id}/deactivate`, options);
+    return fetch(`${_apiUrl}/${patronId}/deactivate`, options);
 }
