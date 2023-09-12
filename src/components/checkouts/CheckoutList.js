@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getCheckouts } from '../../data/checkoutsData';
-import { Table } from 'reactstrap';
+import { getCheckouts, returnCheckout } from '../../data/checkoutsData';
+import { Button, Table } from 'reactstrap';
 
 export const CheckoutList = () => {
     const [checkouts, setCheckouts] = useState([]);
@@ -8,6 +8,10 @@ export const CheckoutList = () => {
     useEffect(() => {
         getCheckouts().then(setCheckouts);
     }, [])
+
+    const handleReturn = (checkout) => {
+        returnCheckout(checkout.id).then(() => getCheckouts().then(setCheckouts))
+    }
 
     return (
         <div className='container'>
@@ -24,6 +28,7 @@ export const CheckoutList = () => {
                         <th>Return Date</th>
                         <th>Late Fee</th>
                         <th>Paid</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +45,9 @@ export const CheckoutList = () => {
                                 <td>{co.returnDate?.split("T")[0] || "Checked Out"}</td>
                                 <td>{"$" + co.lateFee || "N/A"}</td>
                                 <td>{co.lateFee !== null ? co.paid ? "Paid" : "Outstanding" : "N/A"}</td>
+                                <td>{co.returnDate === null ? <Button onClick={() => {
+                                    handleReturn(co);
+                                }}>Return</Button> : ""}</td>
                             </tr>
                         );
                     })}
