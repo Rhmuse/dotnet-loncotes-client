@@ -29,6 +29,7 @@ export default function MaterialList() {
             <th>Title</th>
             <th>Type</th>
             <th>Genre</th>
+            <th>Removed</th>
             <th></th>
             <th></th>
           </tr>
@@ -40,6 +41,7 @@ export default function MaterialList() {
               <td>{m.materialName}</td>
               <td>{m.materialType.name}</td>
               <td>{m.genre.name}</td>
+              <td>{m.outOfCirculationSince ? m.outOfCirculationSince?.split("T")[0] : "Available"}</td>
               <td>
                 <Link to={`${m.id}`}>Details</Link>
               </td>

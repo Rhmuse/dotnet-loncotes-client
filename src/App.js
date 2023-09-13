@@ -9,6 +9,9 @@ function App() {
         <Nav navbar>
           <NavbarBrand href="/">📖 Loncotes County Library</NavbarBrand>
           <NavItem>
+            <NavLink href="/browse">Browse</NavLink>
+          </NavItem>
+          <NavItem>
             <NavLink href="/materials">Materials</NavLink>
           </NavItem>
           <NavItem>
@@ -16,6 +19,9 @@ function App() {
           </NavItem>
           <NavItem>
             <NavLink href="/checkouts" >Checkouts</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href='/checkouts/overdue'>Overdue Checkouts</NavLink>
           </NavItem>
         </Nav>
       </Navbar>

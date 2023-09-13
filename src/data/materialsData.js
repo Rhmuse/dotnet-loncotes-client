@@ -24,3 +24,7 @@ export const removeMaterial = (materialId) => {
 
   return fetch(`${_apiUrl}/${materialId}/retire`, options)
 }
+
+export const getAvailableMaterials = () => {
+  return fetch(`${_apiUrl}/available`).then(r => r.json());
+}

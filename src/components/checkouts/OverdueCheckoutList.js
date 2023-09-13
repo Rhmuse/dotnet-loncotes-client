@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getCheckouts, returnCheckout } from '../../data/checkoutsData';
-import { Button, Table } from 'reactstrap';
+import { Table } from 'reactstrap';
+import { getOverdueCheckouts } from '../../data/checkoutsData';
 
-export const CheckoutList = () => {
-    const [checkouts, setCheckouts] = useState([]);
+export const OverdueCheckoutList = () => {
+    const [overdueCheckouts, setOverdueCheckouts] = useState([]);
 
     useEffect(() => {
-        getCheckouts().then(setCheckouts);
+        getOverdueCheckouts().then(setOverdueCheckouts);
     }, [])
-
-    const handleReturn = (checkout) => {
-        returnCheckout(checkout.id).then(() => getCheckouts().then(setCheckouts))
-    }
 
     return (
         <div className='container'>
@@ -27,14 +23,12 @@ export const CheckoutList = () => {
                         <th>Checkout Date</th>
                         <th>Return Date</th>
                         <th>Late Fee</th>
-                        <th>Paid</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {checkouts.map((co) => {
+                    {overdueCheckouts.map((co) => {
                         return (
-                            <tr key={`checkout-${co.id}`}>
+                            <tr key={`overdue-checkout-${co.id}`}>
                                 <th scope='row' >{co.id}</th>
                                 <td>{co.materialId}</td>
                                 <td>{co.material.materialName}</td>
@@ -44,10 +38,6 @@ export const CheckoutList = () => {
                                 <td>{co.checkoutDate?.split("T")[0]}</td>
                                 <td>{co.returnDate?.split("T")[0] || "Checked Out"}</td>
                                 <td>{co.lateFee || "N/A"}</td>
-                                <td>{co.lateFee !== null ? co.paid ? "Paid" : "Outstanding" : "N/A"}</td>
-                                <td>{co.returnDate === null ? <Button onClick={() => {
-                                    handleReturn(co);
-                                }}>Return</Button> : ""}</td>
                             </tr>
                         );
                     })}
@@ -55,4 +45,4 @@ export const CheckoutList = () => {
             </Table>
         </div>
     );
-};
+}
